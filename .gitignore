@@ -9,6 +9,9 @@
 # testing
 /coverage
 
+# Reference Doc 
+NOTES.md
+
 # next.js
 /.next/
 /out/
