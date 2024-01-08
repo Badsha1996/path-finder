@@ -1,0 +1,1 @@
+export type ThemeType = "night" | "winter";

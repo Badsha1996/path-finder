@@ -1,8 +1,23 @@
-import React from 'react'
+'use client'
+import React, { useContext, useState } from 'react'
+import ThemeSwap from './ThemeSwap';
+import { ThemeContext } from '../../libs/themes/ThemeContext';
 
 type Props = {}
 
 const Navbar = (props: Props) => {
+    const [selectedOption, setSelectedOption] = useState('Algorithm');
+    const { changeTheme } = useContext(ThemeContext);
+
+    const handleOptionClick = (option: string) => {
+        // const elem = document.activeElement as HTMLElement | null;
+        // if (elem) {
+        //     elem?.blur();
+        // }
+        setSelectedOption(option);
+
+    }
+    
     return (
         <div className="navbar bg-base-100 mb-5">
             <div className="navbar-start">
@@ -13,10 +28,11 @@ const Navbar = (props: Props) => {
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a>Item 1</a></li>
                         <li>
-                            <a>Algorithm</a>
+                            <a>{selectedOption}</a>
                             <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
+                                <li onClick={() => handleOptionClick('Dijkstra')}><a>Dijkstra</a></li>
+                                <li onClick={() => handleOptionClick('Floyd Warshall')}><a>Floyd Warshall</a></li>
+                                <li onClick={() => handleOptionClick('DFS')}><a>DFS</a></li>
                             </ul>
                         </li>
                         <li><a>Item 3</a></li>
@@ -29,17 +45,19 @@ const Navbar = (props: Props) => {
                     <li><a>Item 1</a></li>
                     <li>
                         <details>
-                            <summary>Algorithm</summary>
+                            <summary>{selectedOption}</summary>
                             <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
+                                <li onClick={() => handleOptionClick('Dijkstra')}><a>Dijkstra</a></li>
+                                <li onClick={() => handleOptionClick('Floyd Warshall')}><a>Floyd Warshall</a></li>
+                                <li onClick={() => handleOptionClick('DFS')}><a>DFS</a></li>
                             </ul>
                         </details>
                     </li>
                     <li><a>Item 3</a></li>
                 </ul>
             </div>
-            <div className="navbar-end">
+            <div className="navbar-end gap-2">
+                <ThemeSwap handleOnClick={changeTheme} />
                 <a className="btn">Start</a>
             </div>
         </div>
