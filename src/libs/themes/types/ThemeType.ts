@@ -1,1 +1,1 @@
-export type ThemeType = "night" | "winter";
+export type ThemeType = "dracula" | "winter";

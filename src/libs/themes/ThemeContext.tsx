@@ -18,11 +18,11 @@ export const ThemeProvider = ({ children }: any) => {
     // console.log(event.target.value)
     const nextTheme: string | null = event.target.value || null;
     // console.log(nextTheme)
-    setTheme((prev) => (prev === "winter" ? "night" : "winter"))
+    setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
     // if (nextTheme) {
     //   setTheme(nextTheme);
     // } else {
-    //   setTheme((prev) => (prev === "winter" ? "night" : "winter"));
+    //   setTheme((prev) => (prev === "winter" ? "dracula" : "winter"));
     // }
   };
 

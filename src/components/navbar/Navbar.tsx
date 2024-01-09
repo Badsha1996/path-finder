@@ -2,22 +2,17 @@
 import React, { useContext, useState } from 'react'
 import ThemeSwap from './ThemeSwap';
 import { ThemeContext } from '../../libs/themes/ThemeContext';
+import { NodeType } from '../grid/Grid';
 
-type Props = {}
 
-const Navbar = (props: Props) => {
+const Navbar = ({grid}:{grid:NodeType | unknown}) => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
     const { changeTheme } = useContext(ThemeContext);
 
-    const handleOptionClick = (option: string) => {
-        // const elem = document.activeElement as HTMLElement | null;
-        // if (elem) {
-        //     elem?.blur();
-        // }
-        setSelectedOption(option);
-
+    const handleOptionClick = (option: string) => setSelectedOption(option)
+    const startAlgorithm = () => {
+        console.log('click')
     }
-    
     return (
         <div className="navbar bg-base-100 mb-5">
             <div className="navbar-start">
@@ -58,7 +53,7 @@ const Navbar = (props: Props) => {
             </div>
             <div className="navbar-end gap-2">
                 <ThemeSwap handleOnClick={changeTheme} />
-                <a className="btn">Start</a>
+                <a onClick={startAlgorithm} className="btn">Start</a>
             </div>
         </div>
     )

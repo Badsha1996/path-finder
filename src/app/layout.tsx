@@ -22,7 +22,6 @@ export default function RootLayout({
       <body className={`${inter} bg-slate-400`}>
         <ThemeProvider>
           <ClientThemeWrapper>
-            <Navbar />
             {children}
           </ClientThemeWrapper>
         </ThemeProvider>
