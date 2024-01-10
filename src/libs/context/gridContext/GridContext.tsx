@@ -57,10 +57,11 @@ export const GridContextProvider = ({ children }: GridContextProviderProps) => {
         }
         return gridNode
     }
-    useEffect(() => {
+    
+    useEffect(() => {    
         setGrid(genGrid())
     }, [])
-
+    
     return (
         <GridContext.Provider value={{ grid, setGrid }}>
             {children}

@@ -2,20 +2,33 @@
 import React, { useState } from 'react'
 import ThemeSwap from './ThemeSwap';
 import dijkstra from '@/libs/algorithms/dijkstra';
-import { Theme, useThemeContext } from '@/libs/context/themeContext/ThemeContext';
-import { FINISH_NODE_COL, FINISH_NODE_ROW, START_NODE_COL, START_NODE_ROW, useGridContext } from '@/libs/context/gridContext/GridContext';
+import { useThemeContext } from '@/libs/context/themeContext/ThemeContext';
+import { FINISH_NODE_COL, FINISH_NODE_ROW, NodeType, START_NODE_COL, START_NODE_ROW, useGridContext } from '@/libs/context/gridContext/GridContext';
 
 
 const Navbar = () => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
     const { setTheme } = useThemeContext()
-    const { grid } = useGridContext()
+    const { grid, setGrid } = useGridContext()
     const handleOptionClick = (option: string) => setSelectedOption(option)
+    const animateAlgorithm = (nodes: NodeType[]) => {
+        
+        for (let i = 0; i < nodes.length; i++) {
+            setTimeout(() => {
+                const node = nodes[i];
+                const elementId = `node-${node.row}-${node.col}`;
+                const element = document.getElementById(elementId) as HTMLElement;
+                if (element) element.classList.add(`node-visited`)
+            }, 15 * i);
+        }
+        
+    }
     const startAlgorithm = () => {
         if (grid.length > 0 && grid[0].length > 0) {
             const visitedNodesInOrder = dijkstra(grid,
                 grid[START_NODE_ROW]?.[START_NODE_COL],
                 grid[FINISH_NODE_ROW]?.[FINISH_NODE_COL])
+            animateAlgorithm(visitedNodesInOrder)
         }
     }
 
