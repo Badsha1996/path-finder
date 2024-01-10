@@ -1,5 +1,4 @@
 "use client";
-
 import { useThemeContext } from "./ThemeContext";
 
 export default function ClientThemeWrapper({ children }: any) {

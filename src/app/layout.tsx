@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import ClientThemeWrapper from '@/libs/context/themeContext/ThemeWrapper'
 import { ThemeContextProvider } from '@/libs/context/themeContext/ThemeContext'
+import { GridContextProvider } from '@/libs/context/gridContext/GridContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={`${inter} bg-slate-400`}>
         <ThemeContextProvider>
           <ClientThemeWrapper>
-            {children}
+            <GridContextProvider>
+              {children}
+            </GridContextProvider>
           </ClientThemeWrapper>
         </ThemeContextProvider>
       </body>
