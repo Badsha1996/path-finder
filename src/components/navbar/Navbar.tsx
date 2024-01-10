@@ -1,18 +1,37 @@
 'use client'
-import React, { useContext, useState } from 'react'
+import React, {useState } from 'react'
 import ThemeSwap from './ThemeSwap';
-import { ThemeContext } from '../../libs/themes/ThemeContext';
+
 import { NodeType } from '../grid/Grid';
+import dijkstra from '@/libs/algorithms/dijkstra';
+import { Theme, useThemeContext } from '@/libs/context/themeContext/ThemeContext';
 
 
-const Navbar = ({grid}:{grid:NodeType | unknown}) => {
+const Navbar = ({ grid, startRow, startCol, finishRow, finishCol }: { grid: NodeType | any, startRow: number, startCol: number, finishRow: number, finishCol: number  }) => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
-    const { changeTheme } = useContext(ThemeContext);
+    const { theme, setTheme } = useThemeContext()
 
     const handleOptionClick = (option: string) => setSelectedOption(option)
     const startAlgorithm = () => {
-        console.log('click')
+        if (grid.length > 0 && grid[0].length > 0) {
+            const visitedNodesInOrder = dijkstra(grid,
+                grid[startRow]?.[startCol],
+                grid[finishRow]?.[finishCol])
+
+        }
     }
+
+    const changeTheme = (event?: any) => {
+        console.log(event.target.value)
+        const nextTheme: null | Theme = event.target.value || null;
+        // console.log(nextTheme)
+        setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
+        // if (nextTheme) {
+        //   setTheme(nextTheme);
+        // } else {
+        //   setTheme((prev) => (prev === "winter" ? "dracula" : "winter"));
+        // }
+      };
     return (
         <div className="navbar bg-base-100 mb-5">
             <div className="navbar-start">

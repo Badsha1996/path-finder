@@ -1,11 +1,3 @@
-// It is a weighted algorithm 
-// which calculate shortest path after considering weight 
-// of the edges 
-// REFERENEC - Google Maps
-// MAIN ALGORITHM
-// We can the unvisited array sorting each while loop
-// iteration but that will incress time complexicity => total iteration * nlogN
-// Heap will be a better option here 
 import { Heap } from 'heap-js';
 
 type NodeType = {
@@ -39,15 +31,14 @@ const updateUnvisitedNeighbors = (node: NodeType, grid: NodeType[][], minHeap: H
           minHeap.remove(neighbor)
           temp.distance = newDistance;
           temp.prevNode = node;
-          minHeap.push(temp); // Update the priority queue with the modified node
+          minHeap.push(temp); 
       }
   }
 }
 const getUnvisitedNeighbors = (node:NodeType, grid:NodeType[][])=> {
   const neighbors = [];
   const {col, row} = node;
-  // pushing all node 
-  // UP DOWN LEFT RIGHT
+
   if (row > 0) neighbors.push(grid[row - 1][col]);
   if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
   if (col > 0) neighbors.push(grid[row][col - 1]);
@@ -56,6 +47,7 @@ const getUnvisitedNeighbors = (node:NodeType, grid:NodeType[][])=> {
 }
 
 
+// Main Dijkstra algorihtm 
 const dijkstra = (grid : NodeType[][], startNode:NodeType, finishNode:NodeType) =>{
     const visitedNodesInOrder : NodeType[] = []
     if (startNode!=undefined) startNode.distance  = 0
@@ -67,14 +59,12 @@ const dijkstra = (grid : NodeType[][], startNode:NodeType, finishNode:NodeType) 
     minHeap.init(unvisitedNodes);
     while (!minHeap.isEmpty()){
         const closestNode : NodeType | any = minHeap.pop()
-        // If we encounter a wall, we skip it.
+
         if (closestNode?.isWall) continue;
-        // If the closest node is at a distance of infinity,
-        // we must be trapped and should therefore stop.
+        
         if (closestNode.distance === Infinity) return visitedNodesInOrder;
         closestNode.isVisited = true;
         visitedNodesInOrder.push(closestNode);
-        console.log(visitedNodesInOrder)
         if (closestNode === finishNode) return visitedNodesInOrder;
         updateUnvisitedNeighbors(closestNode, grid, minHeap);
         

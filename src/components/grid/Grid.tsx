@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Node from '@/components/node/Node'
-import dijkstra  from '@/libs/algorithms/dijkstra'
 import Navbar from '../navbar/Navbar'
 
 export type NodeType = {
@@ -53,15 +52,8 @@ const Grid = () => {
         setGrid(genGrid())
     }, [])
     
-    if (grid.length > 0 && grid[0].length > 0) {const cal = dijkstra(grid,
-        grid[START_NODE_ROW]?.[START_NODE_COL],
-        grid[FINISH_NODE_ROW]?.[FINISH_NODE_COL])
-    
-    }
-   
-    
     return (<>
-        <Navbar grid={grid}/>
+        <Navbar grid={grid} startRow={START_NODE_ROW} startCol={START_NODE_COL} finishRow={FINISH_NODE_ROW} finishCol={FINISH_NODE_COL}/>
         <div className='mx-4 max-w-max max-h-max bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400'>
 
             {
