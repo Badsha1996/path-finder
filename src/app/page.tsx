@@ -1,11 +1,13 @@
-import Grid from '@/components/grid/Grid'
+import GridWrapper from '@/components/grid/GridWrapper'
+import Navbar from '@/components/navbar/Navbar'
 
 
 export default function Home() {
   return (
     <main className='h-svh'>
       <div className=''>
-        <Grid/>
+        <Navbar />
+        <GridWrapper/>
       </div>
     </main>
   )

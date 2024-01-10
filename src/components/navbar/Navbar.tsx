@@ -1,37 +1,27 @@
 'use client'
-import React, {useState } from 'react'
+import React, { useState } from 'react'
 import ThemeSwap from './ThemeSwap';
-
-import { NodeType } from '../grid/Grid';
 import dijkstra from '@/libs/algorithms/dijkstra';
 import { Theme, useThemeContext } from '@/libs/context/themeContext/ThemeContext';
+import { FINISH_NODE_COL, FINISH_NODE_ROW, START_NODE_COL, START_NODE_ROW, useGridContext } from '@/libs/context/gridContext/GridContext';
 
 
-const Navbar = ({ grid, startRow, startCol, finishRow, finishCol }: { grid: NodeType | any, startRow: number, startCol: number, finishRow: number, finishCol: number  }) => {
+const Navbar = () => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
-    const { theme, setTheme } = useThemeContext()
-
+    const { setTheme } = useThemeContext()
+    const { grid } = useGridContext()
     const handleOptionClick = (option: string) => setSelectedOption(option)
     const startAlgorithm = () => {
         if (grid.length > 0 && grid[0].length > 0) {
             const visitedNodesInOrder = dijkstra(grid,
-                grid[startRow]?.[startCol],
-                grid[finishRow]?.[finishCol])
-
+                grid[START_NODE_ROW]?.[START_NODE_COL],
+                grid[FINISH_NODE_ROW]?.[FINISH_NODE_COL])
         }
     }
 
-    const changeTheme = (event?: any) => {
-        console.log(event.target.value)
-        const nextTheme: null | Theme = event.target.value || null;
-        // console.log(nextTheme)
+    const changeTheme = () => {
         setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
-        // if (nextTheme) {
-        //   setTheme(nextTheme);
-        // } else {
-        //   setTheme((prev) => (prev === "winter" ? "dracula" : "winter"));
-        // }
-      };
+    };
     return (
         <div className="navbar bg-base-100 mb-5">
             <div className="navbar-start">
