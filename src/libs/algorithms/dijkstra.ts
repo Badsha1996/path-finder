@@ -46,6 +46,18 @@ const getUnvisitedNeighbors = (node:NodeType, grid:NodeType[][])=> {
   return neighbors.filter(neighbor => !neighbor.isVisited);
 }
 
+// Backtracks from the finishNode to find the shortest path.
+// use linked list mthod using each pointer going back
+export function getNodesInShortestPathOrder(finishNode:NodeType) {
+  const nodesInShortestPathOrder = [];
+  let currentNode: NodeType | null = finishNode;
+  while (currentNode !== null) {
+    nodesInShortestPathOrder.unshift(currentNode);
+    currentNode = currentNode.prevNode;
+  }
+  return nodesInShortestPathOrder;
+}
+
 
 // Main Dijkstra algorihtm 
 const dijkstra = (grid : NodeType[][], startNode:NodeType, finishNode:NodeType) =>{

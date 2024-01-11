@@ -22,8 +22,8 @@ const Grid = () => {
                 grid.map((row, rowIdx: number) => {
                     return <div className='flex' key={rowIdx}>
                         {row.map((node, nodeIdx: number) => {
-                            const { isStart, isFinish, isVisited, row, col } = node
-                            return (<Node key={nodeIdx} isStart={isStart} isFinish={isFinish} isVisited={isVisited} row={row} col={col}/>)
+                            const { isStart, isFinish, isVisited, row, col,isWall } = node
+                            return (<Node key={nodeIdx} isStart={isStart} isFinish={isFinish} isWall={isWall} isVisited={isVisited} row={row} col={col}/>)
                         }
                         )}
                     </div>

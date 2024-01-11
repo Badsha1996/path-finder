@@ -1,9 +1,7 @@
 'use client'
-import dijkstra from '@/libs/algorithms/dijkstra'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 //TYPES
-
 type GridContextProviderProps = { children: React.ReactNode }
 export type NodeType = {
     col: number,
@@ -15,10 +13,12 @@ export type NodeType = {
     isWall: boolean,
     prevNode: null | NodeType
 }
-type grid = NodeType[][]
+export type Grid = NodeType[][]
 type GridContext = {
     grid: NodeType[][],
     setGrid: React.Dispatch<React.SetStateAction<NodeType[][]>>
+    isMousePressed: boolean
+    setIsMousePressed: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // constants 
@@ -28,17 +28,13 @@ export const FINISH_NODE_ROW = 10
 export const FINISH_NODE_COL = 39
 
 
-
-
-
 const GridContext = createContext<GridContext | null>(null)
 
-
 export const GridContextProvider = ({ children }: GridContextProviderProps) => {
-    const [grid, setGrid] = useState<grid>(
+    const [isMousePressed, setIsMousePressed] = useState(false)
+    const [grid, setGrid] = useState<Grid>(
         [[{ col: 0, row: 0, isStart: false, isFinish: false, isVisited: false, isWall: false, prevNode: null, distance: Infinity }]]
     )
-
     const newNode = (row: number, col: number) => {
         return {
             col,
@@ -63,13 +59,13 @@ export const GridContextProvider = ({ children }: GridContextProviderProps) => {
         }
         return gridNode
     }
-    
-    useEffect(() => {    
+
+    useEffect(() => {
         setGrid(genGrid())
     }, [])
-    
+
     return (
-        <GridContext.Provider value={{ grid, setGrid }}>
+        <GridContext.Provider value={{ grid, setGrid, isMousePressed, setIsMousePressed }}>
             {children}
         </GridContext.Provider>
     )
