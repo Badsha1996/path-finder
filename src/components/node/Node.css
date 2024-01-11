@@ -58,3 +58,39 @@
   background-color: rgb(255, 230, 0);
 }
 }
+
+.node-wall {
+  animation-name: wallAnimation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes wallAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(0, 32, 61, 0.692);
+    border-radius: 35%;
+  }
+
+  50% {
+    background-color: rgba(0, 182, 136, 0.836);
+    border-radius: 30%;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(0, 155, 26, 0.849);
+    border-radius: 25%;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(2, 8, 34, 0.849);
+    border-radius: 20%;
+  }
+}

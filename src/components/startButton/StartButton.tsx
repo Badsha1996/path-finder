@@ -1,16 +1,44 @@
-import { FINISH_NODE_COL, FINISH_NODE_ROW, NodeType, START_NODE_COL, START_NODE_ROW, useGridContext } from "@/libs/context/gridContext/GridContext"
+import { NodeType, useGridContext } from "@/libs/context/gridContext/GridContext"
 import dijkstra, { getNodesInShortestPathOrder } from "@/libs/algorithms/dijkstra"
 
-const StartButton = ({selectedOption}:{selectedOption:string}) => {
+const StartButton = ({ selectedOption }: { selectedOption: string }) => {
     const { grid } = useGridContext()
-    
+
     const startAlgorithm = (algorithm: string) => {
-        if (grid.length > 0 && grid[0].length > 0) {
+        // start Node and finsished Node are there 
+        let startNode: NodeType = {
+            col: 0,
+            row: 0,
+            isStart: false,
+            isFinish: false,
+            distance: 0,
+            isVisited: false,
+            isWall: false,
+            prevNode: null
+        }
+        let finishNode: NodeType = {
+            col: 0,
+            row: 0,
+            isStart: false,
+            isFinish: false,
+            distance: 0,
+            isVisited: false,
+            isWall: false,
+            prevNode: null
+        }
+        for (const row of grid) {
+            for (const node of row) {
+                if (node.isStart == true) { startNode = node }
+                if (node.isFinish == true) { finishNode = node }
+            }
+        }
+
+        if (grid.length > 0 && grid[0].length > 0 && (startNode.row !== finishNode.row && startNode.col !== finishNode.col)) {
             if (algorithm == 'Dijkstra') {
                 const visitedNodesInOrder = dijkstra(grid,
-                    grid[START_NODE_ROW]?.[START_NODE_COL],
-                    grid[FINISH_NODE_ROW]?.[FINISH_NODE_COL])
-                const nodesInShortestPathOrder = getNodesInShortestPathOrder(grid[FINISH_NODE_ROW]?.[FINISH_NODE_COL]);
+                    startNode,
+                    finishNode)
+                const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
                 animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder)
             } else {
                 console.log('No algo')
@@ -30,7 +58,7 @@ const StartButton = ({selectedOption}:{selectedOption:string}) => {
                 const node = nodes[i];
                 const elementId = `node-${node.row}-${node.col}`;
                 const element = document.getElementById(elementId) as HTMLElement;
-                if (element) element.classList.add(`node-visited`)
+                if (element && !node.isStart && !node.isFinish) element.classList.add(`node-visited`)
             }, 15 * i);
         }
     }

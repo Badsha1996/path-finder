@@ -8,8 +8,12 @@ import StartButton from '../startButton/StartButton';
 const Navbar = () => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
     const { setTheme } = useThemeContext()
+  
     const handleOptionClick = (option: string) => setSelectedOption(option)
-
+    
+    const handleClearGrid = () => {
+        window.location.reload()
+    }
     const changeTheme = () => {
         setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
     };
@@ -21,7 +25,7 @@ const Navbar = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a>Item 1</a></li>
+                        <li><a onClick={handleClearGrid}>Clear Grid</a></li>
                         <li>
                             <a>{selectedOption}</a>
                             <ul className="p-2">
@@ -30,14 +34,14 @@ const Navbar = () => {
                                 <li onClick={() => handleOptionClick('DFS')}><a>DFS</a></li>
                             </ul>
                         </li>
-                        <li><a>Item 3</a></li>
+
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">pathFinder</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a>Item 1</a></li>
+                    <li><a onClick={handleClearGrid}>Clear Grid</a></li>
                     <li>
                         <details>
                             <summary>{selectedOption}</summary>
@@ -48,12 +52,12 @@ const Navbar = () => {
                             </ul>
                         </details>
                     </li>
-                    <li><a>Item 3</a></li>
+
                 </ul>
             </div>
             <div className="navbar-end gap-2">
                 <ThemeSwap handleOnClick={changeTheme} />
-                <StartButton selectedOption={selectedOption}/>
+                <StartButton selectedOption={selectedOption} />
             </div>
         </div>
     )

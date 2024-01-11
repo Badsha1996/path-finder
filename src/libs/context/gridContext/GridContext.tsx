@@ -19,13 +19,17 @@ type GridContext = {
     setGrid: React.Dispatch<React.SetStateAction<NodeType[][]>>
     isMousePressed: boolean
     setIsMousePressed: React.Dispatch<React.SetStateAction<boolean>>
+    startSelected: boolean
+    setStartSelected:React.Dispatch<React.SetStateAction<boolean>>
+    finishSelected: boolean
+    setFinishSelected : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // constants 
-export const START_NODE_ROW = 5
-export const START_NODE_COL = 5
-export const FINISH_NODE_ROW = 10
-export const FINISH_NODE_COL = 39
+// export const START_NODE_ROW = 5
+// export const START_NODE_COL = 5
+// export const FINISH_NODE_ROW = 10
+// export const FINISH_NODE_COL = 39
 
 
 const GridContext = createContext<GridContext | null>(null)
@@ -35,12 +39,14 @@ export const GridContextProvider = ({ children }: GridContextProviderProps) => {
     const [grid, setGrid] = useState<Grid>(
         [[{ col: 0, row: 0, isStart: false, isFinish: false, isVisited: false, isWall: false, prevNode: null, distance: Infinity }]]
     )
+    const [startSelected, setStartSelected] = useState(false)
+    const [finishSelected, setFinishSelected] = useState(false)
     const newNode = (row: number, col: number) => {
         return {
             col,
             row,
-            isStart: row == START_NODE_ROW && col == START_NODE_COL,
-            isFinish: row == FINISH_NODE_ROW && col == FINISH_NODE_COL,
+            isStart: false,
+            isFinish: false,
             distance: Infinity,
             isVisited: false,
             isWall: false,
@@ -65,7 +71,7 @@ export const GridContextProvider = ({ children }: GridContextProviderProps) => {
     }, [])
 
     return (
-        <GridContext.Provider value={{ grid, setGrid, isMousePressed, setIsMousePressed }}>
+        <GridContext.Provider value={{ grid, setGrid, isMousePressed, setIsMousePressed, startSelected, setStartSelected, finishSelected, setFinishSelected }}>
             {children}
         </GridContext.Provider>
     )
@@ -74,7 +80,6 @@ export const GridContextProvider = ({ children }: GridContextProviderProps) => {
 // Consumer
 export const useGridContext = () => {
     const context = useContext(GridContext)
-
     if (!context) {
         throw new Error('context must be within provider')
     }
