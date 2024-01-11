@@ -1,4 +1,5 @@
 'use client'
+import dijkstra from '@/libs/algorithms/dijkstra'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 //TYPES
@@ -26,7 +27,12 @@ export const START_NODE_COL = 5
 export const FINISH_NODE_ROW = 10
 export const FINISH_NODE_COL = 39
 
+
+
+
+
 const GridContext = createContext<GridContext | null>(null)
+
 
 export const GridContextProvider = ({ children }: GridContextProviderProps) => {
     const [grid, setGrid] = useState<grid>(

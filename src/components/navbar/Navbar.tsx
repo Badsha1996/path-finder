@@ -9,10 +9,23 @@ import { FINISH_NODE_COL, FINISH_NODE_ROW, NodeType, START_NODE_COL, START_NODE_
 const Navbar = () => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
     const { setTheme } = useThemeContext()
-    const { grid, setGrid } = useGridContext()
+    const { grid } = useGridContext()
     const handleOptionClick = (option: string) => setSelectedOption(option)
+    const startAlgorithm = (algorithm : string) => {
+
+        if (grid.length > 0 && grid[0].length > 0) {
+            if (algorithm == 'Dijkstra'){
+                const visitedNodesInOrder = dijkstra(grid,
+                grid[START_NODE_ROW]?.[START_NODE_COL],
+                grid[FINISH_NODE_ROW]?.[FINISH_NODE_COL])
+            animateAlgorithm(visitedNodesInOrder)
+            }else{
+                console.log('No algo')
+            }
+            
+        }
+    }
     const animateAlgorithm = (nodes: NodeType[]) => {
-        
         for (let i = 0; i < nodes.length; i++) {
             setTimeout(() => {
                 const node = nodes[i];
@@ -20,18 +33,9 @@ const Navbar = () => {
                 const element = document.getElementById(elementId) as HTMLElement;
                 if (element) element.classList.add(`node-visited`)
             }, 15 * i);
-        }
-        
+        }  
     }
-    const startAlgorithm = () => {
-        if (grid.length > 0 && grid[0].length > 0) {
-            const visitedNodesInOrder = dijkstra(grid,
-                grid[START_NODE_ROW]?.[START_NODE_COL],
-                grid[FINISH_NODE_ROW]?.[FINISH_NODE_COL])
-            animateAlgorithm(visitedNodesInOrder)
-        }
-    }
-
+    
     const changeTheme = () => {
         setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
     };
@@ -75,7 +79,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-end gap-2">
                 <ThemeSwap handleOnClick={changeTheme} />
-                <a onClick={startAlgorithm} className="btn">Start</a>
+                <a onClick={()=>startAlgorithm(selectedOption)} className="btn">Start</a>
             </div>
         </div>
     )
