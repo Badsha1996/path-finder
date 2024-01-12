@@ -29,11 +29,12 @@ const StartButton = ({ selectedOption }: { selectedOption: string }) => {
         for (const row of grid) {
             for (const node of row) {
                 if (node.isStart == true) { startNode = node }
-                if (node.isFinish == true) { finishNode = node }
+                else if (node.isFinish == true) { finishNode = node }
+
             }
         }
 
-        if (grid.length > 0 && grid[0].length > 0 && (startNode.row !== finishNode.row && startNode.col !== finishNode.col)) {
+        if (grid.length > 0 && grid[0].length > 0) {
             if (algorithm == 'Dijkstra') {
                 const visitedNodesInOrder = dijkstra(grid,
                     startNode,
@@ -44,6 +45,7 @@ const StartButton = ({ selectedOption }: { selectedOption: string }) => {
                 console.log('No algo')
             }
         }
+
     }
     const animateAlgorithm = (nodes: NodeType[], nodesInShortestPathOrder: NodeType[]) => {
         for (let i = 0; i <= nodes.length; i++) {

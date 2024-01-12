@@ -8,17 +8,23 @@ import StartButton from '../startButton/StartButton';
 const Navbar = () => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
     const { setTheme } = useThemeContext()
-  
-    const handleOptionClick = (option: string) => setSelectedOption(option)
+
     
-    const handleClearGrid = () => {
-        window.location.reload()
+    const handleClearGrid = () => window.location.reload()
+    const changeTheme = () => setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
+    const handleOptionClick = (option: string) => {
+        setSelectedOption(option)
+        const elem = document.querySelector('.dropdown-content') as HTMLElement
+        
+        // if(elem){
+        // elem?.blur();
+        // }
+
+        // REMOVE VISIBLITY FROM DROPDOWN CONTENT 
     }
-    const changeTheme = () => {
-        setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
-    };
+
     return (
-        <div className="navbar bg-base-100 mb-5">
+        <div className="navbar bg-base-100 mb-5 z-10">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -27,8 +33,8 @@ const Navbar = () => {
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a onClick={handleClearGrid}>Clear Grid</a></li>
                         <li>
-                            <a>{selectedOption}</a>
-                            <ul className="p-2">
+                            <a >{selectedOption}</a>
+                            <ul className="p-2" >
                                 <li onClick={() => handleOptionClick('Dijkstra')}><a>Dijkstra</a></li>
                                 <li onClick={() => handleOptionClick('Floyd Warshall')}><a>Floyd Warshall</a></li>
                                 <li onClick={() => handleOptionClick('DFS')}><a>DFS</a></li>
@@ -44,7 +50,7 @@ const Navbar = () => {
                     <li><a onClick={handleClearGrid}>Clear Grid</a></li>
                     <li>
                         <details>
-                            <summary>{selectedOption}</summary>
+                            <summary >{selectedOption}</summary>
                             <ul className="p-2">
                                 <li onClick={() => handleOptionClick('Dijkstra')}><a>Dijkstra</a></li>
                                 <li onClick={() => handleOptionClick('Floyd Warshall')}><a>Floyd Warshall</a></li>

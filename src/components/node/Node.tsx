@@ -28,7 +28,7 @@ const Node = ({ isStart, isFinish, row, col, isVisited, isWall }: { isStart: boo
       newGrid[row][col] = newNode;
       setStartSelected(true)
       return newGrid;
-    } else if (!finishSelected) {
+    } else if (!node.isStart && !finishSelected) {
       const newNode = {
         ...node,
         isFinish: !node.isFinish,
