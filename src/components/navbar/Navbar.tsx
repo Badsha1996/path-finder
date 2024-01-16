@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 import ThemeSwap from './ThemeSwap';
 import { useThemeContext } from '@/libs/context/themeContext/ThemeContext';
 import StartButton from '../startButton/StartButton';
+import { useGridContext } from '@/libs/context/gridContext/GridContext';
 
 
 const Navbar = () => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
     const { setTheme } = useThemeContext()
+    const {setGrid, grid} = useGridContext()
 
     
     const handleClearGrid = () => window.location.reload()
@@ -23,6 +25,26 @@ const Navbar = () => {
         // REMOVE VISIBLITY FROM DROPDOWN CONTENT 
     }
 
+    const genMage = () =>{
+        // make a copy of a grid 
+        const newGrid = grid.slice()
+
+        for (const row of newGrid) {
+            for (const node of row) {
+                if (Math.random() < 0.20) {
+                    const newNode = {
+                      ...node,
+                      isWall: true,
+                    };
+                    newGrid[node.row][node.col] = newNode;
+                  }
+                
+            }
+        }
+        // set new grid
+        setGrid(newGrid) 
+    }
+
     return (
         <div className="navbar bg-base-100 mb-5 z-10">
             <div className="navbar-start">
@@ -32,6 +54,7 @@ const Navbar = () => {
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a onClick={handleClearGrid}>Clear Grid</a></li>
+                        <li><a onClick={genMage}>Generate Mage</a></li>
                         <li>
                             <a >{selectedOption}</a>
                             <ul className="p-2" >
@@ -48,6 +71,7 @@ const Navbar = () => {
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     <li><a onClick={handleClearGrid}>Clear Grid</a></li>
+                    <li><a onClick={genMage}>Generate Mage</a></li>
                     <li>
                         <details>
                             <summary >{selectedOption}</summary>

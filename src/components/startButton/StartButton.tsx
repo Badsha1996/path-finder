@@ -1,6 +1,7 @@
 import { NodeType, useGridContext } from "@/libs/context/gridContext/GridContext"
 import dijkstra, { getNodesInShortestPathOrder } from "@/libs/algorithms/dijkstra"
 
+
 const StartButton = ({ selectedOption }: { selectedOption: string }) => {
     const { grid } = useGridContext()
 
@@ -40,6 +41,8 @@ const StartButton = ({ selectedOption }: { selectedOption: string }) => {
                     startNode,
                     finishNode)
                 const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+                // console.log(nodesInShortestPathOrder)
+                // console.log(visitedNodesInOrder)
                 animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder)
             } else {
                 console.log('No algo')

@@ -25,8 +25,11 @@ const getAllNodes = (grid : NodeType[][]) =>{
 const updateUnvisitedNeighbors = (node: NodeType, grid: NodeType[][], minHeap: Heap<NodeType>) => {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
   for (const neighbor of unvisitedNeighbors) {
-      const newDistance = node.distance + 1;
-      if (newDistance < neighbor.distance) {
+      // const newDistance = node.distance + 1;
+      const weight = neighbor.distance === 200 ? 5 : neighbor.distance === 100 ? -5 : 1;
+      const newDistance = node.distance + weight;
+
+      if (newDistance <= neighbor.distance + node.distance) {
           const temp = neighbor
           minHeap.remove(neighbor)
           temp.distance = newDistance;
@@ -55,6 +58,7 @@ export function getNodesInShortestPathOrder(finishNode:NodeType) {
     nodesInShortestPathOrder.unshift(currentNode);
     currentNode = currentNode.prevNode;
   }
+  
   return nodesInShortestPathOrder;
 }
 
