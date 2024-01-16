@@ -49,7 +49,7 @@ export const GridContextProvider = ({ children }: GridContextProviderProps) => {
         }
     }
     const genGrid = () => {
-        const gridNode = []
+        const gridNode :Grid = []
         for (let row = 0; row < 15; row++) {
             const curRow = []
             for (let col = 0; col < 50; col++) {

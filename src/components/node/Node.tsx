@@ -5,9 +5,10 @@ import startIcon from '../../../public/entry-point.svg'
 import finishIcon from '../../../public/finish-point.svg'
 import weightIcon from '../../../public/weight.svg'
 import bombIcon from '../../../public/bomb.svg'
+import brickIcon from '../../../public/brick.svg'
 
 const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { isStart: boolean, isFinish: boolean, isWall: boolean, isVisited: boolean, row: number, col: number, distance: number }) => {
-  const nodeDesignClass = isWall ? 'node-wall' : isStart ? 'selected-node start-node' : isFinish ? 'selected-node ': distance===100 ? 'bomb-node' : ''
+  const nodeDesignClass = isWall ? 'bg-blue-950' : isStart ? 'selected-node start-node' : isFinish ? 'selected-node ': distance===100 ? 'bomb-node' : ''
   const { grid, setGrid, setIsMousePressed, isMousePressed, startSelected, setStartSelected, finishSelected, setFinishSelected } = useGridContext()
   const getNewGridWithWallToggled = (grid: Grid, row: number, col: number, e: any) => {
     const newGrid = grid.slice();
@@ -93,7 +94,7 @@ const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { is
 
   return (
     <div id={`node-${row}-${col}`}
-      className={`h-7 w-7 outline-cyan-300 outline outline-1 ${nodeDesignClass}`}
+      className={`h-7 w-7 outline-cyan-300  outline outline-1 ${nodeDesignClass}`}
       onMouseDown={(e) => onMouseDown(row, col, e)}
       onMouseEnter={(e) => onMouseEnter(row, col, e)}
       onMouseUp={() => onMouseUp()}
@@ -132,12 +133,13 @@ const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { is
         distance=== 100 && (
           <Image
             src={bombIcon}
-            alt='shortcut-node'
+            alt='bomb-node'
             width={100}
             height={100}>
           </Image>
         )
       }
+      
     </div>
   )
 }

@@ -3,16 +3,42 @@ import React, { useState } from 'react'
 import ThemeSwap from './ThemeSwap';
 import { useThemeContext } from '@/libs/context/themeContext/ThemeContext';
 import StartButton from '../startButton/StartButton';
-import { useGridContext } from '@/libs/context/gridContext/GridContext';
+import { Grid, useGridContext } from '@/libs/context/gridContext/GridContext';
 
 
 const Navbar = () => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
     const { setTheme } = useThemeContext()
-    const {setGrid, grid} = useGridContext()
+    const {setGrid, grid, setStartSelected, setFinishSelected} = useGridContext()
 
     
-    const handleClearGrid = () => window.location.reload()
+    const handleClearGrid = () => {
+        const newNode = (row: number, col: number) => {
+            return {
+                col,
+                row,
+                isStart: false,
+                isFinish: false,
+                distance: Infinity,
+                isVisited: false,
+                isWall: false,
+                prevNode: null
+    
+            }
+        }
+        const gridNode:Grid = []
+        for (let row = 0; row < 15; row++) {
+            const curRow = []
+            for (let col = 0; col < 50; col++) {
+                curRow.push(newNode(row, col))
+            }
+            gridNode.push(curRow)
+        }
+        // set new grid
+        setGrid(gridNode) 
+        setFinishSelected(false)
+        setStartSelected(false)
+    }
     const changeTheme = () => setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
     const handleOptionClick = (option: string) => {
         setSelectedOption(option)
@@ -31,7 +57,7 @@ const Navbar = () => {
 
         for (const row of newGrid) {
             for (const node of row) {
-                if (Math.random() < 0.20) {
+                if (Math.random() < 0.20 && (!node.isStart && !node.isFinish)) {
                     const newNode = {
                       ...node,
                       isWall: true,
@@ -52,7 +78,7 @@ const Navbar = () => {
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
-                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3  p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a onClick={handleClearGrid}>Clear Grid</a></li>
                         <li><a onClick={genMage}>Generate Mage</a></li>
                         <li>
