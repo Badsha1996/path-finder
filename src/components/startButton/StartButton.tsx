@@ -60,7 +60,9 @@ const StartButton = ({ selectedOption }: { selectedOption: string }) => {
             }
 
             setTimeout(() => {
+                
                 const node = nodes[i];
+                
                 const elementId = `node-${node.row}-${node.col}`;
                 const element = document.getElementById(elementId) as HTMLElement;
                 if (element && !node.isStart && !node.isFinish) element.classList.add(`node-visited`)

@@ -33,6 +33,7 @@ export const GridContextProvider = ({ children }: GridContextProviderProps) => {
     const [grid, setGrid] = useState<Grid>(
         [[{ col: 0, row: 0, isStart: false, isFinish: false, isVisited: false, isWall: false, prevNode: null, distance: Infinity }]]
     )
+    
     const [startSelected, setStartSelected] = useState(false)
     const [finishSelected, setFinishSelected] = useState(false)
     const newNode = (row: number, col: number) => {
@@ -62,6 +63,7 @@ export const GridContextProvider = ({ children }: GridContextProviderProps) => {
 
     useEffect(() => {
         setGrid(genGrid())
+        
     }, [])
 
     return (

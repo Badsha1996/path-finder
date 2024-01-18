@@ -5,10 +5,10 @@ import startIcon from '../../../public/entry-point.svg'
 import finishIcon from '../../../public/finish-point.svg'
 import weightIcon from '../../../public/weight.svg'
 import bombIcon from '../../../public/bomb.svg'
-import brickIcon from '../../../public/brick.svg'
+import { useEffect } from 'react'
 
 const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { isStart: boolean, isFinish: boolean, isWall: boolean, isVisited: boolean, row: number, col: number, distance: number }) => {
-  const nodeDesignClass = isWall ? 'bg-blue-950' : isStart ? 'selected-node start-node' : isFinish ? 'selected-node ': distance===100 ? 'bomb-node' : ''
+  const nodeDesignClass = isWall ? 'node-wall bg-blue-950' : isStart ? 'selected-node start-node' : isFinish ? 'selected-node ': distance===100 ? 'animate-pulse' : distance===200 ? 'animate-bounce':isVisited ? 'node-visited':''
   const { grid, setGrid, setIsMousePressed, isMousePressed, startSelected, setStartSelected, finishSelected, setFinishSelected } = useGridContext()
   const getNewGridWithWallToggled = (grid: Grid, row: number, col: number, e: any) => {
     const newGrid = grid.slice();
@@ -32,7 +32,7 @@ const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { is
 
       newGrid[row][col] = newNode;
       return newGrid;
-    } else {
+    } else if(!isWall && distance!==100 && distance!==200) {
       const newNode = {
         ...node,
         isWall: !node.isWall,
@@ -40,6 +40,7 @@ const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { is
       newGrid[row][col] = newNode;
       return newGrid;
     }
+    return newGrid
   };
 
   const genNewGridWithGoalNode = (grid: Grid, row: number, col: number) => {
@@ -92,9 +93,10 @@ const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { is
     setGrid(newGrid)
   }
 
+
   return (
     <div id={`node-${row}-${col}`}
-      className={`h-7 w-7 outline-cyan-300  outline outline-1 ${nodeDesignClass}`}
+      className={`h-7 w-7  outline outline-[0.001px] outline-cyan-100   ${nodeDesignClass}`}
       onMouseDown={(e) => onMouseDown(row, col, e)}
       onMouseEnter={(e) => onMouseEnter(row, col, e)}
       onMouseUp={() => onMouseUp()}
@@ -121,12 +123,14 @@ const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { is
       }
       {
         distance=== 200 && (
+          <div className='outline-none'>
           <Image
             src={weightIcon}
             alt='weight-node'
             width={100}
             height={100}>
           </Image>
+          </div>
         )
       }
       {
