@@ -1,5 +1,8 @@
 import { NodeType, useGridContext } from "@/libs/context/gridContext/GridContext"
 import dijkstra, { getNodesInShortestPathOrder } from "@/libs/algorithms/dijkstra"
+import BFS from "@/libs/algorithms/BFS"
+import DFS from "@/libs/algorithms/DFS"
+import astar from "@/libs/algorithms/AStart"
 
 
 const StartButton = ({ selectedOption }: { selectedOption: string }) => {
@@ -41,16 +44,35 @@ const StartButton = ({ selectedOption }: { selectedOption: string }) => {
                     startNode,
                     finishNode)
                 const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-                // console.log(nodesInShortestPathOrder)
-                // console.log(visitedNodesInOrder)
-                animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder)
-            } else {
+                animateAlgorithm('Dijkstra', visitedNodesInOrder, nodesInShortestPathOrder)
+            } else if (algorithm == 'BFS') {
+                const visitedNodesInOrder = BFS(grid,
+                    startNode,
+                    finishNode)
+                const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+                animateAlgorithm('BFS', visitedNodesInOrder, nodesInShortestPathOrder)
+            } else if (algorithm == 'DFS') {
+                const visitedNodesInOrder = DFS(grid,
+                    startNode,
+                    finishNode)
+            
+                const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+                animateAlgorithm('DFS', visitedNodesInOrder, nodesInShortestPathOrder)
+            } else if (algorithm == 'Astar'){
+                const visitedNodesInOrder = astar(grid,
+                    startNode,
+                    finishNode)
+                console.log(visitedNodesInOrder)
+                const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+                animateAlgorithm('Astar', visitedNodesInOrder, nodesInShortestPathOrder)
+            }
+            else {
                 console.log('No algo')
             }
         }
 
     }
-    const animateAlgorithm = (nodes: NodeType[], nodesInShortestPathOrder: NodeType[]) => {
+    const animateAlgorithm = (algoType: string, nodes: NodeType[], nodesInShortestPathOrder: NodeType[]) => {
         for (let i = 0; i <= nodes.length; i++) {
             if (i === nodes.length) {
                 setTimeout(() => {
@@ -60,12 +82,11 @@ const StartButton = ({ selectedOption }: { selectedOption: string }) => {
             }
 
             setTimeout(() => {
-                
                 const node = nodes[i];
-                
                 const elementId = `node-${node.row}-${node.col}`;
                 const element = document.getElementById(elementId) as HTMLElement;
-                if (element && !node.isStart && !node.isFinish) element.classList.add(`node-visited`)
+                if (element && !node.isStart && !node.isFinish) element.classList.add(`node-visited-${algoType}`)
+
             }, 15 * i);
         }
     }

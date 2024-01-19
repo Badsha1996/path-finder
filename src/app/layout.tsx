@@ -4,6 +4,7 @@ import './globals.css'
 import ClientThemeWrapper from '@/libs/context/themeContext/ThemeWrapper'
 import { ThemeContextProvider } from '@/libs/context/themeContext/ThemeContext'
 import { GridContextProvider } from '@/libs/context/gridContext/GridContext'
+import { GuideContextProvider } from '@/libs/context/guideContext/GuideContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,9 +23,11 @@ export default function RootLayout({
       <body className={`${inter} bg-slate-400`}>
         <ThemeContextProvider>
           <ClientThemeWrapper>
-            <GridContextProvider>
-              {children}
-            </GridContextProvider>
+            <GuideContextProvider>
+              <GridContextProvider>
+                {children}
+              </GridContextProvider>
+            </GuideContextProvider>
           </ClientThemeWrapper>
         </ThemeContextProvider>
       </body>

@@ -5,10 +5,9 @@ import startIcon from '../../../public/entry-point.svg'
 import finishIcon from '../../../public/finish-point.svg'
 import weightIcon from '../../../public/weight.svg'
 import bombIcon from '../../../public/bomb.svg'
-import { useEffect } from 'react'
 
 const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { isStart: boolean, isFinish: boolean, isWall: boolean, isVisited: boolean, row: number, col: number, distance: number }) => {
-  const nodeDesignClass = isWall ? 'node-wall bg-blue-950' : isStart ? 'selected-node start-node' : isFinish ? 'selected-node ': distance===100 ? 'animate-pulse' : distance===200 ? 'animate-bounce':isVisited ? 'node-visited':''
+  const nodeDesignClass = isWall ? 'node-wall bg-blue-950' : isStart ? '' : isFinish ? '': distance===100 ? 'animate-pulse' : distance===200 ? 'animate-bounce':isVisited ? 'node-visited':''
   const { grid, setGrid, setIsMousePressed, isMousePressed, startSelected, setStartSelected, finishSelected, setFinishSelected } = useGridContext()
   const getNewGridWithWallToggled = (grid: Grid, row: number, col: number, e: any) => {
     const newGrid = grid.slice();
@@ -96,7 +95,7 @@ const Node = ({ isStart, isFinish, row, col, isVisited, isWall, distance }: { is
 
   return (
     <div id={`node-${row}-${col}`}
-      className={`h-7 w-7  outline outline-[0.001px] outline-cyan-100   ${nodeDesignClass}`}
+      className={`h-7 w-7 outline outline-[0.001px] outline-cyan-100   ${nodeDesignClass}`}
       onMouseDown={(e) => onMouseDown(row, col, e)}
       onMouseEnter={(e) => onMouseEnter(row, col, e)}
       onMouseUp={() => onMouseUp()}

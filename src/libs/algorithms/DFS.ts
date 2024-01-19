@@ -1,5 +1,3 @@
-import { Heap } from 'heap-js';
-
 type NodeType = {
     col:number,
     row:number,
@@ -37,36 +35,37 @@ export function getNodesInShortestPathOrder(finishNode:NodeType) {
 
 
 // Main Dijkstra algorihtm 
-const BFS = (grid : NodeType[][], startNode:NodeType, finishNode:NodeType) =>{
+const DFS = (grid : NodeType[][], startNode:NodeType, finishNode:NodeType) =>{
     const visitedNodesInOrder : NodeType[] = []
-
-    // need a queue for searching with startnode as starting point 
-    const queue: NodeType[] = [startNode]
-
-    while (queue.length!=0){
-        const node =  queue.shift()
-        if (node?.isWall) continue;
+    
+    const dfs = (startNode: NodeType) =>{
+        if (startNode === finishNode) {
+            visitedNodesInOrder.push(startNode);
+            return;
+        }
+        if (startNode?.isWall) return;
         
-        if(node!=undefined) node.isVisited = true
-        visitedNodesInOrder.push(node!)
+        startNode.isVisited = true 
+        if (startNode.isVisited) visitedNodesInOrder.push(startNode)
+        
+        const unvisitedNeighbors = getAllNeighbors(startNode!, grid)
 
-        if (node === finishNode) return visitedNodesInOrder;
-        const unvisitedNeighbors = getAllNeighbors(node!, grid)
-        for(let n of unvisitedNeighbors){
-            if(!n.isVisited){
-                queue.push(n)
-                n.isVisited = true
-                n.prevNode = node!
+        for(let nei of unvisitedNeighbors){
+            if (!nei.isVisited) {
+                
+                nei.prevNode = startNode
+                dfs(nei)
+                if (visitedNodesInOrder[visitedNodesInOrder.length - 1] === finishNode) return
             }
         }
-
-
     }
+
+    dfs(startNode)
     return visitedNodesInOrder; 
 }
 
 
-export default BFS
+export default DFS
 
 
 

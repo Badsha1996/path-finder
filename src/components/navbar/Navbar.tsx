@@ -4,17 +4,18 @@ import ThemeSwap from './ThemeSwap';
 import { useThemeContext } from '@/libs/context/themeContext/ThemeContext';
 import StartButton from '../startButton/StartButton';
 import { Grid, useGridContext } from '@/libs/context/gridContext/GridContext';
+import GuideCard from '../guideCardCarousel/GuideCardCarousel';
+import { useGuideContext } from '@/libs/context/guideContext/GuideContext';
 
 
 const Navbar = () => {
     const [selectedOption, setSelectedOption] = useState('Algorithm');
+    const [mageType, setMageType] = useState('Generate Mage');
     const { setTheme } = useThemeContext()
     const { setGrid, grid, setStartSelected, setFinishSelected } = useGridContext()
-
+    const {showGuide, setShowGuide} = useGuideContext()
 
     const handleClearGrid = () => {
-
-
         const newNode = (row: number, col: number) => {
             return {
                 col,
@@ -38,7 +39,10 @@ const Navbar = () => {
                 const elementId = `node-${row}-${col}`;
                 const element = document.getElementById(elementId) as HTMLElement;
                 if (element) {
-                    element.classList.remove(`node-visited`)
+                    element.classList.remove(`node-visited-BFS`)
+                    element.classList.remove(`node-visited-DFS`)
+                    element.classList.remove(`node-visited-Dijkstra`)
+                    element.classList.remove(`node-visited-Astar`)
                     element.classList.remove(`node-shortest-path`)
                 }
             }
@@ -54,38 +58,63 @@ const Navbar = () => {
     const changeTheme = () => setTheme((prev) => (prev === "winter" ? "dracula" : "winter"))
     const handleOptionClick = (option: string) => {
         setSelectedOption(option)
-        const elem = document.querySelector('.dropdown-content') as HTMLElement
+        const elem = document.querySelector('.dropdown-content ul') as HTMLElement
 
-        // if(elem){
-        // elem?.blur();
-        // }
+        if (elem) {
+            elem?.blur();
+        }
 
         // REMOVE VISIBLITY FROM DROPDOWN CONTENT 
     }
 
-    const genMage = () => {
-        // make a copy of a grid 
+    const genMage = (type: string) => {
         const newGrid = grid.slice()
 
-        for (const row of newGrid) {
-            for (const node of row) {
-                if (Math.random() < 0.20 && (!node.isStart && !node.isFinish) && (node.distance !== 100 && node.distance !== 200)) {
-                    const newNode = {
-                        ...node,
-                        isWall: true,
-                    };
-                    newGrid[node.row][node.col] = newNode;
-                }
+        if (type == 'random') {
+            for (const row of newGrid) {
+                for (const node of row) {
+                    if (Math.random() < 0.20 && (!node.isStart && !node.isFinish) && (node.distance !== 100 && node.distance !== 200)) {
+                        const newNode = {
+                            ...node,
+                            isWall: true,
+                        };
+                        newGrid[node.row][node.col] = newNode;
+                    }
 
+                }
             }
+        } else if (type == 'wallAllTheBorder') {
+            for (const row of newGrid) {
+                for (const node of row) {
+                    if ((node.row == 0 || node.col == 0 || node.row == grid.length - 1 || node.col == grid[0].length - 1) && (!node.isStart && !node.isFinish) && (node.distance !== 100 && node.distance !== 200)) {
+                        const newNode = {
+                            ...node,
+                            isWall: true,
+                        };
+                        newGrid[node.row][node.col] = newNode;
+                    }
+
+                }
+            }
+        } else {
+            console.log('no mage')
         }
-        // set new grid
+
+
         setGrid(newGrid)
     }
 
+
+    const handleGuide = () => {
+        setShowGuide(!showGuide)
+
+    }
+
+    
+
     return (
         <div>
-            <div className="navbar bg-base-100 mb-5 z-10">
+            <div className="navbar bg-base-100 mb-5 z-10 border-b">
                 <div className="navbar-start">
                     <div className="dropdown z-10">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -93,13 +122,21 @@ const Navbar = () => {
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3  p-2 shadow bg-base-100 rounded-box w-52">
                             <li><a onClick={handleClearGrid}>Clear Grid</a></li>
-                            <li><a onClick={genMage}>Generate Mage</a></li>
+                            <li>
+                                <a >{mageType}</a>
+                                <ul className="p-2 z-10" >
+                                    <li onClick={() => genMage('random')} ><a>Random</a></li>
+                                    <li onClick={() => genMage('wallAllTheBorder')} ><a>Cage</a></li>
+
+                                </ul>
+                            </li>
                             <li>
                                 <a >{selectedOption}</a>
                                 <ul className="p-2 z-10" >
                                     <li onClick={() => handleOptionClick('Dijkstra')} ><a>Dijkstra</a></li>
-                                    <li onClick={() => handleOptionClick('Floyd Warshall')} ><a>Floyd Warshall</a></li>
+                                    <li onClick={() => handleOptionClick('BFS')} ><a>BFS</a></li>
                                     <li onClick={() => handleOptionClick('DFS')} ><a>DFS</a></li>
+                                    <li onClick={() => handleOptionClick('Astar')}><a>A*</a></li>
                                 </ul>
                             </li>
 
@@ -110,14 +147,23 @@ const Navbar = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         <li><a onClick={handleClearGrid}>Clear Grid</a></li>
-                        <li><a onClick={genMage}>Generate Mage</a></li>
+                        <li>
+                            <details>
+                                <summary >{mageType}</summary>
+                                <ul className="p-2 z-10" >
+                                    <li onClick={() => genMage('random')} ><a>Random</a></li>
+                                    <li onClick={() => genMage('wallAllTheBorder')} ><a>Cage</a></li>
+                                </ul>
+                            </details>
+                        </li>
                         <li>
                             <details>
                                 <summary >{selectedOption}</summary>
                                 <ul className="p-2 z-10">
                                     <li onClick={() => handleOptionClick('Dijkstra')}><a>Dijkstra</a></li>
-                                    <li onClick={() => handleOptionClick('Floyd Warshall')}><a>Floyd Warshall</a></li>
-                                    <li  onClick={() => handleOptionClick('DFS')}><a>DFS</a></li>
+                                    <li onClick={() => handleOptionClick('BFS')}><a>BFS</a></li>
+                                    <li onClick={() => handleOptionClick('DFS')}><a>DFS</a></li>
+                                    <li onClick={() => handleOptionClick('Astar')}><a>A*</a></li>
                                 </ul>
                             </details>
                         </li>
@@ -125,6 +171,8 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-2">
+                    <a onClick={() => handleGuide()} className="btn bg-slate-300">Guide</a>
+
                     <ThemeSwap handleOnClick={changeTheme} />
                     <StartButton selectedOption={selectedOption} />
                 </div>
