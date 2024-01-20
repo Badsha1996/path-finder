@@ -29,7 +29,7 @@ const MarkCard = (props: Props) => {
             </div>
             <div className='flex gap-1 border border-red-900 p-2 rounded-full justify-center items-center'>
                 <div className='bg-blue-950 h-5 w-5'></div>
-                <span>Bomb Node</span>
+                <span>Wall Node</span>
             </div>
         </div>
     )
