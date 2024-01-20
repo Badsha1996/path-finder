@@ -1,377 +1,156 @@
-/* .node-wall {
-  animation-name: wallAnimation;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
-  
+.node-wall {
+  animation: wallAnimation 0.3s ease-out forwards;
 }
 
 @keyframes wallAnimation {
   0% {
-    transform: scale(.3);
-    
+    transform: scale(0.3);
   }
 
   50% {
     transform: scale(1.2);
-    
-  } 
+  }
 
   100% {
-    transform: scale(1.0);
-    
+    transform: scale(1);
   }
 }
 
-
-
 .node-visited-BFS {
-  animation-name: visitedAnimation-BFS;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
-  
+  animation: visitedAnimation-BFS 1.5s ease-out forwards;
 }
-
 
 @keyframes visitedAnimation-BFS {
   0% {
     transform: scale(0.3);
-    background-color: rgba(66, 0, 0, 0.75);
-    border-radius: 100%;
+    background-color: rgba(28, 20, 24, 0.75);
+    border-radius: 50%;
   }
 
   50% {
-    background-color: rgba(217, 64, 17, 0.75);
+    background-color: rgba(240, 98, 146, 0.75);
   }
 
   75% {
     transform: scale(1.2);
-    background-color: rgba(217, 184, 0, 0.75);
+    background-color: rgba(249, 205, 173, 0.75);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgba(218, 196, 0, 0.75);
+    background-color: rgba(240, 240, 240, 0.75);
   }
 }
-
-
 
 .node-visited-Dijkstra {
-    animation-name: visitedAnimation-Dijkstra;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
-    
-  }
-
-  
-@keyframes visitedAnimation-Dijkstra {
-    0% {
-      transform: scale(0.3);
-      background-color: rgba(0, 0, 66, 0.75);
-      border-radius: 100%;
-    }
-  
-    50% {
-      background-color: rgba(17, 104, 217, 0.75);
-    }
-  
-    75% {
-      transform: scale(1.2);
-      background-color: rgba(0, 217, 159, 0.75);
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color: rgba(0, 190, 218, 0.75);
-    }
-  }
-
-
-  .node-visited-DFS {
-    animation-name: visitedAnimation-DFS;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
-    
-  }
-  
-  
-@keyframes visitedAnimation-DFS {
-    0% {
-      transform: scale(0.3);
-      background-color:  rgb(225, 16, 239, 0.75);
-      border-radius: 100%;
-    }
-  
-    50% {
-      background-color:  rgb(239, 113, 16,0.75);
-    }
-  
-    75% {
-      transform: scale(1.2);
-      background-color:  rgb(30, 239, 16,0.75)
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color:  rgb(16, 142, 239,0.75);
-    }
-  }
-
-
-
-  
-.node-visited-Astar {
-  animation-name: visitedAnimation-Astar;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
-  
+  animation: visitedAnimation-Dijkstra 1.5s ease-out forwards;
 }
 
+@keyframes visitedAnimation-Dijkstra {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(19, 79, 92, 0.75);
+    border-radius: 50%;
+  }
+
+  50% {
+    background-color: rgba(221, 98, 56, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(153, 207, 214, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(74, 88, 97, 0.75);
+  }
+}
+
+.node-visited-DFS {
+  animation: visitedAnimation-DFS 1.5s ease-out forwards;
+}
+
+@keyframes visitedAnimation-DFS {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(61, 63, 75, 0.75);
+    border-radius: 50%;
+  }
+
+  50% {
+    background-color: rgba(244, 208, 63, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(65, 184, 131, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(235, 107, 86, 0.75);
+  }
+}
+
+.node-visited-Astar {
+  animation: visitedAnimation-Astar 1.5s ease-out forwards;
+}
 
 @keyframes visitedAnimation-Astar {
   0% {
     transform: scale(0.3);
-    background-color:  #af2d38;
+    background-color: rgba(0, 0, 66, 0.75);
     border-radius: 100%;
   }
 
   50% {
-    background-color:  #0092a5;
+    background-color: rgba(17, 104, 217, 0.75);
   }
 
   75% {
     transform: scale(1.2);
-    background-color:  #962483;
+    background-color: rgba(0, 217, 159, 0.75);
   }
 
   100% {
     transform: scale(1);
-    background-color:  #5A5DA5;
+    background-color: rgba(0, 190, 218, 0.75);
   }
 }
- 
-   
+
+
+
+
+
 .node-shortest-path {
-    animation-name: shortestPath;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
-    outline: none;
-   
+  animation: shortestPath 1.5s ease-out forwards, glow 1.5s infinite alternate;
 }
-  
+
 @keyframes shortestPath {
-0% {
-  transform: scale(0.6);
-  background-color: rgb(252, 255, 66);
+  0% {
+    transform: scale(0.6);
+    background-color: rgba(236, 229, 97, 0.774);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: rgba(250, 177, 160, 0.774);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(255, 238, 0, 0.774);
+  }
 }
 
-50% {
-  transform: scale(1.2);
-  background-color: rgb(255, 232, 29);
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 238, 0, 0.5);
+  }
+
+  100% {
+    box-shadow: 0 0 20px rgba(255, 238, 0, 0.9);
+  }
 }
-
-100% {
-  transform: scale(1);
-  background-color: rgba(255, 238, 0, 0.774);
-}
-}
-  */
-
-
-
-
-
-
-
-
-
-
-
-
-  .node-wall {
-    animation: wallAnimation 0.3s ease-out forwards;
-  }
-  
-  @keyframes wallAnimation {
-    0% {
-      transform: scale(0.3);
-    }
-  
-    50% {
-      transform: scale(1.2);
-    }
-  
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  .node-visited-BFS {
-    animation: visitedAnimation-BFS 1.5s ease-out forwards;
-  }
-  
-  @keyframes visitedAnimation-BFS {
-    0% {
-      transform: scale(0.3);
-      background-color: rgba(28, 20, 24, 0.75);
-      border-radius: 50%;
-    }
-  
-    50% {
-      background-color: rgba(240, 98, 146, 0.75);
-    }
-  
-    75% {
-      transform: scale(1.2);
-      background-color: rgba(249, 205, 173, 0.75);
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color: rgba(240, 240, 240, 0.75);
-    }
-  }
-  
-  .node-visited-Dijkstra {
-    animation: visitedAnimation-Dijkstra 1.5s ease-out forwards;
-  }
-  
-  @keyframes visitedAnimation-Dijkstra {
-    0% {
-      transform: scale(0.3);
-      background-color: rgba(19, 79, 92, 0.75);
-      border-radius: 50%;
-    }
-  
-    50% {
-      background-color: rgba(221, 98, 56, 0.75);
-    }
-  
-    75% {
-      transform: scale(1.2);
-      background-color: rgba(153, 207, 214, 0.75);
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color: rgba(74, 88, 97, 0.75);
-    }
-  }
-  
-  .node-visited-DFS {
-    animation: visitedAnimation-DFS 1.5s ease-out forwards;
-  }
-  
-  @keyframes visitedAnimation-DFS {
-    0% {
-      transform: scale(0.3);
-      background-color: rgba(61, 63, 75, 0.75);
-      border-radius: 50%;
-    }
-  
-    50% {
-      background-color: rgba(244, 208, 63, 0.75);
-    }
-  
-    75% {
-      transform: scale(1.2);
-      background-color: rgba(65, 184, 131, 0.75);
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color: rgba(235, 107, 86, 0.75);
-    }
-  }
-  
-  .node-visited-Astar {
-    animation: visitedAnimation-Astar 1.5s ease-out forwards;
-  }
-  
-  @keyframes visitedAnimation-Astar {
-    0% {
-      transform: scale(0.3);
-      background-color: rgba(0, 0, 66, 0.75);
-      border-radius: 100%;
-    }
-  
-    50% {
-      background-color: rgba(17, 104, 217, 0.75);
-    }
-  
-    75% {
-      transform: scale(1.2);
-      background-color: rgba(0, 217, 159, 0.75);
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color: rgba(0, 190, 218, 0.75);
-    }
-  }
-  
-
-
-
-
-  .node-shortest-path {
-    animation: shortestPath 1.5s ease-out forwards, glow 1.5s infinite alternate;
-  }
-  
-  @keyframes shortestPath {
-    0% {
-      transform: scale(0.6);
-      background-color: rgba(236, 229, 97, 0.774);
-    }
-  
-    50% {
-      transform: scale(1.2);
-      background-color: rgba(250, 177, 160, 0.774);
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color: rgba(255, 238, 0, 0.774);
-    }
-  }
-  
-  @keyframes glow {
-    0% {
-      box-shadow: 0 0 5px rgba(255, 238, 0, 0.5);
-    }
-  
-    100% {
-      box-shadow: 0 0 20px rgba(255, 238, 0, 0.9);
-    }
-  }
-  

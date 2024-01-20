@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import ThemeSwap from './ThemeSwap';
 import { useThemeContext } from '@/libs/context/themeContext/ThemeContext';
 import StartButton from '../startButton/StartButton';
-import { Grid, useGridContext } from '@/libs/context/gridContext/GridContext';
-import GuideCard from '../guideCardCarousel/GuideCardCarousel';
+import { useGridContext } from '@/libs/context/gridContext/GridContext';
 import { useGuideContext } from '@/libs/context/guideContext/GuideContext';
+import { Grid } from '@/libs/types/Types';
 
 
 const Navbar = () => {
@@ -13,7 +13,33 @@ const Navbar = () => {
     const [mageType, setMageType] = useState('Generate Mage');
     const { setTheme } = useThemeContext()
     const { setGrid, grid, setStartSelected, setFinishSelected } = useGridContext()
-    const {showGuide, setShowGuide} = useGuideContext()
+    const { showGuide, setShowGuide } = useGuideContext()
+
+    const handleClearPath = () => {
+        const newGrid = grid.slice()
+
+        for (const row of newGrid) {
+            for (const node of row) {
+                const elementId = `node-${node.row}-${node.col}`;
+                const element = document.getElementById(elementId) as HTMLElement;
+                if (element.classList.contains(`node-visited-BFS`)) element.classList.remove(`node-visited-BFS`)
+                if (element.classList.contains(`node-visited-DFS`)) element.classList.remove(`node-visited-DFS`)
+                if (element.classList.contains(`node-visited-Dijkstra`)) element.classList.remove(`node-visited-Dijkstra`)
+                if (element.classList.contains(`node-visited-Astar`)) element.classList.remove(`node-visited-Astar`)
+                if (element.classList.contains(`node-shortest-path`)) element.classList.remove(`node-shortest-path`)
+                
+                const newNode = {
+                    ...node,
+                    isVisited:false,
+                    prevNode : null,
+                    distance: Infinity
+                };
+                newGrid[node.row][node.col] = newNode;
+                setGrid(newGrid)
+
+            }
+        }
+    }
 
     const handleClearGrid = () => {
         const newNode = (row: number, col: number) => {
@@ -110,7 +136,7 @@ const Navbar = () => {
 
     }
 
-    
+
 
     return (
         <div>
@@ -122,6 +148,7 @@ const Navbar = () => {
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3  p-2 shadow bg-base-100 rounded-box w-52">
                             <li><a onClick={handleClearGrid}>Clear Grid</a></li>
+                            <li><a onClick={handleClearPath}>Clear Paths</a></li>
                             <li>
                                 <a >{mageType}</a>
                                 <ul className="p-2 z-10" >
@@ -147,6 +174,7 @@ const Navbar = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         <li><a onClick={handleClearGrid}>Clear Grid</a></li>
+                        <li><a onClick={handleClearPath}>Clear Paths</a></li>
                         <li>
                             <details>
                                 <summary >{mageType}</summary>

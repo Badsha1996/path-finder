@@ -1,8 +1,9 @@
-import { NodeType, useGridContext } from "@/libs/context/gridContext/GridContext"
+import { useGridContext } from "@/libs/context/gridContext/GridContext"
 import dijkstra, { getNodesInShortestPathOrder } from "@/libs/algorithms/dijkstra"
 import BFS from "@/libs/algorithms/BFS"
 import DFS from "@/libs/algorithms/DFS"
 import astar from "@/libs/algorithms/AStart"
+import { NodeType } from "@/libs/types/Types"
 
 
 const StartButton = ({ selectedOption }: { selectedOption: string }) => {
@@ -62,7 +63,7 @@ const StartButton = ({ selectedOption }: { selectedOption: string }) => {
                 const visitedNodesInOrder = astar(grid,
                     startNode,
                     finishNode)
-                console.log(visitedNodesInOrder)
+                
                 const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
                 animateAlgorithm('Astar', visitedNodesInOrder, nodesInShortestPathOrder)
             }

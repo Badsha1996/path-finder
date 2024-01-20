@@ -1,4 +1,5 @@
 import { Heap } from 'heap-js';
+import { Grid } from '../types/Types';
 
 type NodeType = {
     col:number,
@@ -12,7 +13,7 @@ type NodeType = {
 }
 
 
-const getAllNeighbors = (node:NodeType, grid:NodeType[][])=> {
+const getAllNeighbors = (node:NodeType, grid:Grid)=> {
   const neighbors = [];
   const {col, row} = node;
 
@@ -37,7 +38,7 @@ export function getNodesInShortestPathOrder(finishNode:NodeType) {
 
 
 // Main Dijkstra algorihtm 
-const BFS = (grid : NodeType[][], startNode:NodeType, finishNode:NodeType) =>{
+const BFS = (grid : Grid, startNode:NodeType, finishNode:NodeType) =>{
     const visitedNodesInOrder : NodeType[] = []
 
     // need a queue for searching with startnode as starting point 

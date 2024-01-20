@@ -1,22 +1,13 @@
 'use client'
+import { Grid } from '@/libs/types/Types'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 //TYPES
 type GridContextProviderProps = { children: React.ReactNode }
-export type NodeType = {
-    col: number,
-    row: number,
-    isStart: boolean,
-    isFinish: boolean,
-    distance: typeof Infinity,
-    isVisited: boolean,
-    isWall: boolean,
-    prevNode: null | NodeType
-}
-export type Grid = NodeType[][]
+
 type GridContext = {
-    grid: NodeType[][],
-    setGrid: React.Dispatch<React.SetStateAction<NodeType[][]>>
+    grid: Grid,
+    setGrid: React.Dispatch<React.SetStateAction<Grid>>
     isMousePressed: boolean
     setIsMousePressed: React.Dispatch<React.SetStateAction<boolean>>
     startSelected: boolean

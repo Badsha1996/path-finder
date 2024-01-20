@@ -5,7 +5,10 @@ import WeightNode from "../../Assets/weightNode.gif"
 import BombNode from "../../Assets/bombNode.gif"
 import Maze from "../../Assets/mage.gif"
 import Output from "../../Assets/findDist.gif"
-const Instructions = [
+import { Guide } from "@/libs/types/Types"
+
+
+const Guides : Guide[] = [
     {
         demo: BlockCreate,
         Heading: 'Create Walls',
@@ -42,14 +45,15 @@ const Instructions = [
         content: "Click on the Start button to find the shortest path between the start and end node.",
       },
       {
+        demo:null,
         Heading:"About Algorithms",
         content:{
           "Breadth-First Search (BFS)":"Explores a graph level by level, suitable for unweighted graphs to find the shortest path.",
           "Depth-First Search (DFS)":"Traverses as far as possible before backtracking, useful for topological sorting and connected components",
           "Dijkstra's Algorithm":"Finds the shortest path in weighted graphs with non-negative edges, using a priority queue",
-          "A Algorithm":"Informed search algorithm combining BFS and heuristic information, efficient for goal-directed searches with optimality",
+          "A* Algorithm":"Informed search algorithm combining BFS and heuristic information, efficient for goal-directed searches with optimality",
         }
 
       }
 ]
-export default Instructions
+export default Guides

@@ -1,18 +1,10 @@
 import { Heap } from 'heap-js';
+import { Grid, NodeType } from '../types/Types';
 
-type NodeType = {
-    col:number,
-    row:number,
-    isStart: boolean ,
-    isFinish: boolean,
-    distance: typeof Infinity,
-    isVisited: boolean,
-    isWall: boolean,
-    prevNode: null | NodeType
-}
+
 
 // HELPER FUNCTIONS 
-const getAllNodes = (grid : NodeType[][]) =>{
+const getAllNodes = (grid : Grid) =>{
     const nodes : NodeType[] = []
     for (const row of grid) {
         for (const node of row) {
@@ -22,7 +14,7 @@ const getAllNodes = (grid : NodeType[][]) =>{
     return nodes
 }
 
-const updateUnvisitedNeighbors = (node: NodeType, grid: NodeType[][], minHeap: Heap<NodeType>) => {
+const updateUnvisitedNeighbors = (node: NodeType, grid: Grid, minHeap: Heap<NodeType>) => {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
   for (const neighbor of unvisitedNeighbors) {
       // const newDistance = node.distance + 1;
@@ -38,7 +30,7 @@ const updateUnvisitedNeighbors = (node: NodeType, grid: NodeType[][], minHeap: H
       }
   }
 }
-const getUnvisitedNeighbors = (node:NodeType, grid:NodeType[][])=> {
+const getUnvisitedNeighbors = (node:NodeType, grid:Grid)=> {
   const neighbors = [];
   const {col, row} = node;
 
@@ -64,7 +56,7 @@ export function getNodesInShortestPathOrder(finishNode:NodeType) {
 
 
 // Main Dijkstra algorihtm 
-const dijkstra = (grid : NodeType[][], startNode:NodeType, finishNode:NodeType) =>{
+const dijkstra = (grid : Grid, startNode:NodeType, finishNode:NodeType) =>{
     const visitedNodesInOrder : NodeType[] = []
     if (startNode!=undefined) startNode.distance  = 0
    

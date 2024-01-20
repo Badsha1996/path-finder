@@ -3,7 +3,6 @@ import Node from '@/components/node/Node'
 import { useGridContext } from '@/libs/context/gridContext/GridContext'
 import { useThemeContext } from '@/libs/context/themeContext/ThemeContext'
 import { useEffect, useState } from 'react'
-import GuideCardCarousel from '../guideCardCarousel/GuideCardCarousel'
 
 const Grid = () => {
     const { grid } = useGridContext()

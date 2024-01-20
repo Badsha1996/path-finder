@@ -1,16 +1,7 @@
-type NodeType = {
-    col:number,
-    row:number,
-    isStart: boolean ,
-    isFinish: boolean,
-    distance: typeof Infinity,
-    isVisited: boolean,
-    isWall: boolean,
-    prevNode: null | NodeType
-}
+import { Grid, NodeType } from "../types/Types";
 
 
-const getAllNeighbors = (node:NodeType, grid:NodeType[][])=> {
+const getAllNeighbors = (node:NodeType, grid:Grid)=> {
   const neighbors = [];
   const {col, row} = node;
 
@@ -35,7 +26,7 @@ export function getNodesInShortestPathOrder(finishNode:NodeType) {
 
 
 // Main Dijkstra algorihtm 
-const DFS = (grid : NodeType[][], startNode:NodeType, finishNode:NodeType) =>{
+const DFS = (grid : Grid, startNode:NodeType, finishNode:NodeType) =>{
     const visitedNodesInOrder : NodeType[] = []
     
     const dfs = (startNode: NodeType) =>{
