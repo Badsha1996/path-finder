@@ -31,13 +31,14 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## What is this project 
-In this section i want to explain the purpose of the project and why i created it
-Gooogle maps is an amazing thing that utilize excelent algorithms such as *Dijkstra* and *A-star* So i wanted to see them in action, In order to do that i have created this grid which will simulate and visualize the algorithms
+In this section I want to explain the purpose of the project and why I created it
+Google Maps is an amazing thing that utilizes excellent algorithms such as *Dijkstra* and *A-star* So I wanted to see them in action, To do that I have created this grid which will simulate and visualize the algorithms
 
 ## Algorithms
-* Dijkstra - This will gurentee a shortest path
-* A-start - This is the fastest algorihtm 
-* DFS - It will search each nodes depth till it find that node but it is very slow as it use recursion 
-* BFS - It is a great alternative to DFS which find the path using a QUEUE data structure 
+* Dijkstra - This will guarantee a shortest path
+* A-start - This is the fastest algorithm 
+* DFS - It will search each node depth till it finds that node but it is very slow as it uses recursion 
+* BFS - It is a great alternative to DFS which finds the path using a QUEUE data structure 
 
+# Please feel free to contribute and add or raise any issues. If you want to contribute to this project please give it a star and make a pull request
 
